@@ -4,7 +4,7 @@
 
 ### macOS ###
 # General
-.DS_Store
+**/.DS_Store
 .AppleDouble
 .LSOverride
 
@@ -32,3 +32,5 @@ Temporary Items
 .apdisk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos
+rdesktop_chrome_2captcha_cloudscraper_web/.DS_Store
+rdesktop_chrome_2captcha_cloudscraper_web/.DS_Store
