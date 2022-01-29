@@ -1,5 +1,8 @@
 #!/bin/bash
 
+cd "$(dirname -- "$0")"
+pwd -P
+
 if [ -f "cred.txt" ]
 then
 	token=$(sed -n 1p cred.txt)
