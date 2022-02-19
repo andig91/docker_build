@@ -30,7 +30,7 @@ done
 
 if [ ! -z "$builderror" ]
 then
-	curl "https://api.telegram.org/bot$token/sendMessage?chat_id=$empfanger&text=Docker Build Error:$builderror"
+	curl "https://api.telegram.org/bot$token/sendMessage?chat_id=$empfanger&text=Docker-Builder Error:$builderror"
 else
-	curl "https://api.telegram.org/bot$token/sendMessage?chat_id=$empfanger&text=Docker Build Error: %0AAll Fine"
+	curl "https://api.telegram.org/bot$token/sendMessage?chat_id=$empfanger&text=Docker-Builder: %0AAll Fine"
 fi
