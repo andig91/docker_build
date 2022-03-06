@@ -9,7 +9,7 @@ then
 	empfanger=$(sed -n 2p cred.txt)
 fi
 
-if [ -z $(ls -1A */multiarch) ]
+if [[ $(ls -1A */multiarch) ]]
 then
 	echo "Multiarch builds exists"
 	docker buildx create --name mybuilder
