@@ -1,0 +1,37 @@
+#!/bin/bash
+
+todaydate=$(date +%F)
+
+if [ -z "$1" ]
+then
+	echo "Bitte Build-Ordner angeben"
+	exit
+fi
+
+if [ -f "$1/multiarch" ]
+then
+	architecture=$(sed -n 1p $1/multiarch)
+	echo $architecture
+	docker buildx create --name mybuilder
+	docker buildx use mybuilder
+else
+	echo "Kein Multiarch-File"
+	exit
+fi
+
+#exit
+if [ -d $1 ]; then
+	echo "Dir exists"
+    name=$(echo "$d" | cut -d "/" -f 1)
+    docker buildx build  --platform $architecture -t andi91/$1:latest --push --no-cache $1
+    docker buildx build  --platform $architecture -t andi91/$1:$todaydate --push $1
+	#docker build --no-cache --pull --progress=plain -t andi91/$1 $1
+	#docker image tag andi91/$1:latest andi91/$1:$todaydate
+	#docker push andi91/$1:latest
+	#docker push andi91/$1:$todaydate
+else
+	echo "Dir not existing"
+fi
+
+docker buildx stop mybuilder
+docker buildx rm mybuilder
