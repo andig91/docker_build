@@ -9,7 +9,7 @@ then
 	empfanger=$(sed -n 2p cred.txt)
 fi
 
-if [ $(ls -1A */multiarch) ]
+if [ -z $(ls -1A */multiarch) ]
 then
 	echo "Multiarch builds exists"
 	docker buildx create --name mybuilder
@@ -22,7 +22,7 @@ todaydate=$(date +%F)
 
 for d in */ ; do
     name=$(echo "$d" | cut -d "/" -f 1)
-    ls -la */*
+    #ls -la */*
     #sleep 3
     if [ -f "$name/multiarch" ]
 	then
