@@ -22,6 +22,9 @@ todaydate=$(date +%F)
 
 for d in */ ; do
     name=$(echo "$d" | cut -d "/" -f 1)
+    echo
+    echo
+    echo "Build starting $name"
     #ls -la */*
     #sleep 3
     if [ -f "$name/multiarch" ]
