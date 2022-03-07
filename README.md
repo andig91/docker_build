@@ -32,5 +32,5 @@ sudo ./docker_build_push_one_multiarch.sh curl_jq_alpine
 
 # Install crontab for weekly build and deploy on docker hub
 sudo crontab -e
-02 23 * * 6 /home/andig91/docker_build/docker_build_push_all.sh > /tmp/buildlog.txt
+02 23 * * 6 /home/<homedir>/docker_build/docker_build_push_all.sh > /tmp/buildlog.txt
 ```
