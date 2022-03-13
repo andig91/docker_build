@@ -12,6 +12,7 @@ fi
 if [[ $(ls -1A */multiarch) ]]
 then
 	echo "Multiarch builds exists"
+	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 	docker buildx create --name mybuilder
 	docker buildx use mybuilder
 fi

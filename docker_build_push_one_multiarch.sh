@@ -12,6 +12,7 @@ if [ -f "$1/multiarch" ]
 then
 	architecture=$(sed -n 1p $1/multiarch)
 	echo $architecture
+	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 	docker buildx create --name mybuilder
 	docker buildx use mybuilder
 else
