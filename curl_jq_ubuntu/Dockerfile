@@ -1,5 +1,7 @@
 FROM ubuntu:latest
 
+#https://askubuntu.com/questions/1233186/ubuntu-20-04-how-to-set-lower-ssl-security-level
+
 RUN apt-get update && \
     apt-get install -y curl jq  && \
     sed  -i '1i openssl_conf = default_conf' /etc/ssl/openssl.cnf && \
