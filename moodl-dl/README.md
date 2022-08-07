@@ -1,3 +1,6 @@
+Copy of https://github.com/C0D3D3V/Moodle-Downloader-2  
+Weekly docker build for arm64 and amd64  
+
 <div align="center">
     <br>
     <h2>Moodle Downloader 2</h2>
@@ -8,8 +11,6 @@
 
 ---
 
-Copy of https://github.com/C0D3D3V/Moodle-Downloader-2  
-Weekly docker build for arm64 and amd64  
 
 `moodle-dl` is a console application that can download all the files from your Moodle courses that are necessary for your daily study routine. Furthermore, moodle-dl can notify you about various activities on your Moodle server. Notifications can be sent to Telegram, XMPP and Mail. The current implementation includes: 
 
