@@ -1,0 +1,2 @@
+linux/amd64,linux/arm64
+#ARM inactiv for moodle-dl, doesnt work over crossbuild #linux/arm/v7
