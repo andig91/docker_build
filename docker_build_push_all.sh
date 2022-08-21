@@ -59,8 +59,10 @@ docker buildx rm mybuilder
 
 if [ ! -z "$builderror" ]
 then
-	curl "https://api.telegram.org/bot$token/sendMessage?chat_id=$empfanger&text=Docker-Builder Error:$builderror"
+	echo "Docker-Builder Error:$builderror"
+	curl "https://api.telegram.org/bot$token/sendMessage?chat_id=$empfanger&text=Docker-Builder Error: %0A$builderror"
 else
+	"Docker-Builder: All Fine"
 	curl "https://api.telegram.org/bot$token/sendMessage?chat_id=$empfanger&text=Docker-Builder: %0AAll Fine"
 fi
 
