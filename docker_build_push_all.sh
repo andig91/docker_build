@@ -66,6 +66,6 @@ else
 	curl "https://api.telegram.org/bot$token/sendMessage?chat_id=$empfanger" -d text="Docker-Builder: %0AAll Fine"
 fi
 
-
-
+docker rmi $(docker images -aq)
+docker build prune -af
 
