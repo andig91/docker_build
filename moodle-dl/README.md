@@ -1,7 +1,9 @@
 <div align="center">
 	<br>
 	Auto docker build from Repo [C0D3D3V/Moodle-DL](https://github.com/C0D3D3V/Moodle-DL/issues).
+	<br>
     Modified multistage Dockerfile to pull directly from Repo.
+    <br>
     <br>
     <h2>Moodle-DL</h2>
     Because manually downloading all the course files every few days is just <del>way too easy</del> inefficient.
