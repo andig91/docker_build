@@ -1,6 +1,6 @@
 <div align="center">
 	<br>
-	Auto docker build from Repo [C0D3D3V/Moodle-DL](https://github.com/C0D3D3V/Moodle-DL/issues).
+	Auto docker build from Repo [C0D3D3V/Moodle-DL](https://github.com/C0D3D3V/Moodle-DL/).
 	<br>
     Modified multistage Dockerfile to pull directly from Repo.
     <br>
