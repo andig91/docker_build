@@ -23,34 +23,58 @@ todaydate=$(date +%F)
 
 for d in */ ; do
     name=$(echo "$d" | cut -d "/" -f 1)
+	logfile=buildlog_$name.txt
     echo
     echo
     echo "Build starting $name"
     #ls -la */*
     #sleep 3
+	# Clear Builderror on each iteration
+	$builderror_local=""
     if [ -f "$name/multiarch" ]
 	then
 		architecture=$(sed -n 1p $name/multiarch)
 		echo $architecture
-		docker buildx build --platform $architecture -t andi91/$name:latest --push --no-cache $name
-    	docker buildx build --platform $architecture -t andi91/$name:$todaydate --push $name
-    	if $(docker manifest inspect andi91/$name:$todaydate 2>&1 | grep -qc "no such manifest")
-    	then
-    		builderror="$builderror $name %0A"
-			echo "$builderror"
+		echo "$name $architecture" > $logfile
+		docker buildx build --platform $architecture -t andi91/$name:latest --push --no-cache $name >> $logfile 2>&1
+		docker buildx build --platform $architecture -t andi91/$name:$todaydate --push $name >> $logfile 2>&1
+		if $(docker manifest inspect andi91/$name:$todaydate 2>&1 | grep -qc "no such manifest")
+		then
+			builderror_local="$name"
+			echo "$builderror_local"
 		fi
 	else
-		docker rmi $(docker images --format {{.Repository}}:{{.Tag}} andi91/$name)
-		docker build --no-cache --pull --progress=plain -t andi91/$name $name
+		echo "$name singlearch" > $logfile
+		docker rmi $(docker images --format {{.Repository}}:{{.Tag}} andi91/$name) >> $logfile 2>&1
+		docker build --no-cache --pull --progress=plain -t andi91/$name $name >> $logfile 2>&1
 		if [ -z $(docker images -q andi91/$name) ]
 		then
-			builderror="$builderror $name %0A"
-			echo "$builderror"
+			builderror_local="$name"
+			echo "$builderror_local"
 		else
-			docker image tag andi91/$name:latest andi91/$name:$todaydate
-			docker push andi91/$name:latest
-			docker push andi91/$name:$todaydate
+			docker image tag andi91/$name:latest andi91/$name:$todaydate >> $logfile 2>&1
+			docker push andi91/$name:latest >> $logfile 2>&1
+			docker push andi91/$name:$todaydate >> $logfile 2>&1
 		fi
+	fi
+	if [ -z "$builderror_local" ]
+	then
+		builderror="$builderror $builderror_local %0A"
+		curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token='$(sed -n 3p cred.txt)'' \
+		--header 'Content-Type: application/json' \
+		--data '{
+			"image": "'$name'",
+			"success": 0,
+			"log": '$(cat $logfile | jq -Rsa)'
+		}'
+	else
+		curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token='$(sed -n 3p cred.txt)'' \
+		--header 'Content-Type: application/json' \
+		--data '{
+			"image": "'$name'",
+			"success": 1,
+			"log": "All Fine!"
+		}'
 	fi
 done
 
