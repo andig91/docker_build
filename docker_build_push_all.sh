@@ -30,7 +30,7 @@ for d in */ ; do
     #ls -la */*
     #sleep 3
 	# Clear Builderror on each iteration
-	$builderror_local=""
+	builderror_local=""
     if [ -f "$name/multiarch" ]
 	then
 		architecture=$(sed -n 1p $name/multiarch)
