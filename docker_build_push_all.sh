@@ -24,14 +24,14 @@ todaydate=$(date +%F)
 for d in */ ; do
     name=$(echo "$d" | cut -d "/" -f 1)
 	logfile=/tmp/buildlog_$name.txt
-    echo
-    echo
-    echo "Build starting $name"
-    #ls -la */*
-    #sleep 3
+	echo
+	echo
+	echo "Build starting $name"
+	#ls -la */*
+	#sleep 3
 	# Clear Builderror on each iteration
 	builderror_local=""
-    if [ -f "$name/multiarch" ]
+	if [ -f "$name/multiarch" ]
 	then
 		architecture=$(sed -n 1p $name/multiarch)
 		echo $architecture
@@ -57,7 +57,8 @@ for d in */ ; do
 			docker push andi91/$name:$todaydate >> $logfile 2>&1
 		fi
 	fi
-	if [ -z "$builderror_local" ]
+	# Send complete buildlog, if variable is filled  
+	if [ -n "$builderror_local" ]
 	then
 		builderror="$builderror $name %0A"
 		curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token='$(sed -n 3p cred.txt)'' \
@@ -81,6 +82,7 @@ done
 docker buildx stop mybuilder
 docker buildx rm mybuilder
 
+# Send complete buildlog, if variable is filled. Double negative  
 if [ ! -z "$builderror" ]
 then
 	echo "Docker-Builder Error:$builderror"
