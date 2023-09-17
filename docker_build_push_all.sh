@@ -23,7 +23,7 @@ todaydate=$(date +%F)
 
 for d in */ ; do
     name=$(echo "$d" | cut -d "/" -f 1)
-	logfile=buildlog_$name.txt
+	logfile=/tmp/buildlog_$name.txt
     echo
     echo
     echo "Build starting $name"
@@ -59,13 +59,13 @@ for d in */ ; do
 	fi
 	if [ -z "$builderror_local" ]
 	then
-		builderror="$builderror $builderror_local %0A"
+		builderror="$builderror $name %0A"
 		curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token='$(sed -n 3p cred.txt)'' \
 		--header 'Content-Type: application/json' \
 		--data '{
 			"image": "'$name'",
 			"success": 0,
-			"log": '$(cat $logfile | jq -Rsa)'
+			"log": '"$(cat $logfile | jq -Rsa)"'
 		}'
 	else
 		curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token='$(sed -n 3p cred.txt)'' \
