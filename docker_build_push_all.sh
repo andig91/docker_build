@@ -61,13 +61,40 @@ for d in */ ; do
 	if [ -n "$builderror_local" ]
 	then
 		builderror="$builderror $name %0A"
+		stringlengh=$(wc -c $logfile | cut -d " " -f 1)
+		echo $stringlengh
+		if [ $stringlengh -gt 65000 ]
+		then
+			split -b 65000 --numeric-suffixes $logfile /tmp/buildlog_splitted_
+			datalog="["
+			for splitfile in /tmp/buildlog_splitted_*
+			do
+				echo $splitfile 
+				datalog="$datalog"'{
+					"image": "'Testing'",
+					"success": 0,
+					"log": '"$(cat $splitfile | jq -Rsa)"'
+				},'
+			done
+			datalog=$(echo "$datalog" | sed '$s/,/]/')
+			#datalog2="echo ${datalog/%.0/.X}"
+			rm /tmp/buildlog_splitted_*
+		else
+			datalog='{
+					"image": "'Testing'",
+					"success": 0,
+					"log": '"$(cat $logfile | jq -Rsa)"'
+				}'
+		fi
+
 		curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token='$(sed -n 3p cred.txt)'' \
-		--header 'Content-Type: application/json' \
-		--data '{
-			"image": "'$name'",
-			"success": 0,
-			"log": '"$(cat $logfile | jq -Rsa)"'
-		}'
+			--header 'Content-Type: application/json' \
+			--data "$datalog"
+	#		--data '{
+	#			"image": "'$name'",
+	#			"success": 0,
+	#			"log": '"$(cat $logfile | jq -Rsa)"'
+	#		}'
 	else
 		curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token='$(sed -n 3p cred.txt)'' \
 		--header 'Content-Type: application/json' \
