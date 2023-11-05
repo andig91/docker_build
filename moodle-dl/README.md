@@ -4,6 +4,8 @@
 	<br>
     Modified multistage Dockerfile to pull directly from Repo.
     <br>
+    October 2023: Fixed on Python 3.11 because of build error.
+    <br>
     <br>
     <h2>Moodle-DL</h2>
     Because manually downloading all the course files every few days is just <del>way too easy</del> inefficient.

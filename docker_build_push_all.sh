@@ -120,5 +120,5 @@ else
 fi
 
 docker rmi $(docker images -aq)
-docker build prune -af
+docker builder prune -af
 
