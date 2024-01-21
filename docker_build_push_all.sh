@@ -21,8 +21,24 @@ builderror=""
 
 todaydate=$(date +%F)
 
+echo "Docker-Builder: Build startet"
+curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token='$(sed -n 3p cred.txt)'' \
+		--header 'Content-Type: application/json' \
+		--data '{
+			"image": "Build startet",
+			"success": 1,
+			"log": "Processing!"
+		}'
+
 for d in */ ; do
     name=$(echo "$d" | cut -d "/" -f 1)
+    
+    if [[ $name == _old__* ]];
+	then
+		echo "!!!Build skipped!!! $name"
+		continue
+	fi
+	
 	logfile=/tmp/buildlog_$name.txt
 	echo
 	echo
