@@ -27,7 +27,7 @@ curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token=
 		--data '{
 			"image": "Build startet",
 			"success": 1,
-			"log": "Processing!"
+			"log": "Processing all builds!"
 		}'
 
 for d in */ ; do
@@ -35,7 +35,11 @@ for d in */ ; do
     
     if [[ $name == _old__* ]];
 	then
+		echo
+		echo "!!!!!!!"
 		echo "!!!Build skipped!!! $name"
+		echo "!!!!!!!"
+		echo
 		continue
 	fi
 	
@@ -87,7 +91,7 @@ for d in */ ; do
 			do
 				echo $splitfile 
 				datalog="$datalog"'{
-					"image": "'Testing'",
+					"image": "'$name'",
 					"success": 0,
 					"log": '"$(cat $splitfile | jq -Rsa)"'
 				},'
@@ -97,7 +101,7 @@ for d in */ ; do
 			rm /tmp/buildlog_splitted_*
 		else
 			datalog='{
-					"image": "'Testing'",
+					"image": "'$name'",
 					"success": 0,
 					"log": '"$(cat $logfile | jq -Rsa)"'
 				}'
