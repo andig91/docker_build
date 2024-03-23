@@ -1,6 +1,6 @@
 <div align="center">
 	<br>
-	Auto docker build from Repo [C0D3D3V/Moodle-DL](https://github.com/C0D3D3V/Moodle-DL/).
+	Auto docker build from Repo <a href="https://github.com/C0D3D3V/Moodle-DL/">C0D3D3V/Moodle-DL</a>.
 	<br>
     Modified multistage Dockerfile to pull directly from Repo.
     <br>
@@ -16,6 +16,33 @@
 
 ---
 
+# My configuration:  
+
+Choose if you want one directory for download and config, or if you want to separate it.  
+I had two separate directories, because the login-token is stored in the config directory and the downloads was on a group SharePoint.  
+
+## Login to Moodle with Azure-AD:  
+Open Dev-Tools and open Link (first worked for me):  
+https://ecampus.fhstp.ac.at/admin/tool/mobile/launch.php?service=moodle_mobile_app&passport=42.08381059106636&urlscheme=moodlemobile&oauthsso=1  
+https://ecampus.fhstp.ac.at/admin/tool/mobile/launch.php?service=moodle_mobile_app&passport=12345&urlscheme=moodledl  
+Copy token request (example): moodlemobile://token=YTc1OWQzZmZmODadsasdasdasdasdasd6eUh3NHpGa3N6Q2lxVE5PZ1dsasadadasdsadHFBT1Y=  
+
+## Call Moodle-Downloader with "new token" and "sso":  
+Second volume mapping only neccessary if you have a separate download directory:  
+docker run --rm -it -v "./Moodle_Download/SS2024_Config/:/files" -v "./SS2024/Moodle_Download/:/download" andi91/moodle-dl -nt -sso  
+Insert: line with "moodlemobile" or "moodledl"  
+
+## Configure Moodle-Downloader:  
+docker run --rm -it -v "./Moodle_Download/SS2024_Config/:/files" -v "./SS2024/Moodle_Download/:/download" andi91/moodle-dl --configure  
+If you habe seperate folders, copy this line in your config.json:
+`"download_path": "/download"`  
+
+## Start Downloading:  
+docker run --rm -it -v "./Moodle_Download/SS2024_Config/:/files" -v "./SS2024/Moodle_Download/:/download" andi91/moodle-dl  
+
+---
+
+# Start of information from [C0D3D3V/Moodle-DL](https://github.com/C0D3D3V/Moodle-DL/)  
 
 `moodle-dl` is a console application that can download all the files from your Moodle courses that are necessary for your daily study routine. Furthermore, moodle-dl can notify you about various activities on your Moodle server. Notifications can be sent to Telegram, XMPP and Mail. The current implementation includes: 
 
