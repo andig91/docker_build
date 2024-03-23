@@ -4,7 +4,11 @@
 	<br>
     Modified multistage Dockerfile to pull directly from Repo.
     <br>
-    October 2023: Fixed on Python 3.11 because of build error.
+    Weekly build: <a href="https://hub.docker.com/repository/docker/andi91/moodle-dl">Docker-Hub</a>
+    <br>
+    <del>October 2023: Fixed on Python 3.11 because of build error.</del>
+    <br>
+    March 2024: Now all dependencies work with newest python version.
     <br>
     <br>
     <h2>Moodle-DL</h2>
