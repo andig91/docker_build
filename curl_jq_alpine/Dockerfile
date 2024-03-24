@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:latest
 #FROM unguiculus/docker-jq
 
 RUN apk add curl jq
