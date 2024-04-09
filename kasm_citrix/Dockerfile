@@ -17,9 +17,15 @@ echo "icaclient app_protection/install_app_protection select yes" | debconf-set-
 debconf-show icaclient && \ 
 apt install -yq -f /tmp/icaclient_amd64.deb 
 
-RUN apt-get install -y --no-install-recommends \
-    chromium \
-    chromium-l10n
+#COPY firefox-no-snap /etc/apt/preferences.d/firefox-no-snap
+
+ADD https://raw.githubusercontent.com/kasmtech/workspaces-images/develop/src/ubuntu/install/chromium/install_chromium.sh /tmp/install_chromium.sh
+RUN bash /tmp/install_chromium.sh || exit 1;
+#RUN add-apt-repository -y ppa:mozillateam/ppa 
+#RUN apt-get update && apt-get install -y --no-install-recommends \
+#firefox
+#    chromium \
+#    chromium-l10n
 
 
 ######### End Customizations ###########
