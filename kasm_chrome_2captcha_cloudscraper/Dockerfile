@@ -1,5 +1,10 @@
 FROM lscr.io/linuxserver/webtop:ubuntu-xfce
 
+# Little Help
+# https://www.linuxserver.io/blog/webtop-2-0-the-year-of-the-linux-desktop
+# https://kasmweb.com/docs/latest/how_to/building_images.html
+# https://github.com/linuxserver/docker-webtop/blob/ubuntu-xfce/Dockerfile
+
 #COPY /root2 /
 # pip3 install cloudscraper replaced through apt install python3-cloudscraper
 RUN \
