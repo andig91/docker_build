@@ -26,6 +26,8 @@ if [ -d $1 ]; then
     name=$(echo "$d" | cut -d "/" -f 1)
     docker buildx build  --platform $architecture -t andi91/$1:latest --push --no-cache $1
     docker buildx build  --platform $architecture -t andi91/$1:$todaydate --push $1
+    docker buildx build  --platform $architecture -t registry.gruber.live/andi91/$1:latest --push $1
+    docker buildx build  --platform $architecture -t registry.gruber.live/andi91/$1:$todaydate --push $1
 	#docker build --no-cache --pull --progress=plain -t andi91/$1 $1
 	#docker image tag andi91/$1:latest andi91/$1:$todaydate
 	#docker push andi91/$1:latest
