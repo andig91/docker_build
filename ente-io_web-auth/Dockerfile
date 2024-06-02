@@ -9,13 +9,17 @@ COPY --from=ente-gitloader /ente/web .
 RUN yarn install
 ENV NEXT_PUBLIC_ENTE_ENDPOINT=DOCKER_RUNTIME_REPLACE_ENDPOINT
 ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=DOCKER_RUNTIME_REPLACE_ALBUMS_ENDPOINT
-#Here changed
+# Here changed for choosing the app which should be build 
+# '' or 'photos' is the photo-gallery-frontend
+# 'auth' is the 2FA-Vault-Frontend
 #RUN yarn build
 RUN yarn build:auth
 
 
 FROM nginx:1.25-alpine-slim
-#Here changed
+# Here changed for choosing the app which should be build 
+# 'photos' is the photo-gallery-frontend
+# 'auth' is the 2FA-Vault-Frontend
 #COPY --from=ente-builder /app/apps/photos/out /usr/share/nginx/html
 COPY --from=ente-builder /app/apps/auth/out /usr/share/nginx/html
 COPY <<EOF /etc/nginx/conf.d/default.conf
