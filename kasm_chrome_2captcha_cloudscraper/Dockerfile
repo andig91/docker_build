@@ -4,6 +4,7 @@ FROM lscr.io/linuxserver/webtop:ubuntu-xfce
 # https://www.linuxserver.io/blog/webtop-2-0-the-year-of-the-linux-desktop
 # https://kasmweb.com/docs/latest/how_to/building_images.html
 # https://github.com/linuxserver/docker-webtop/blob/ubuntu-xfce/Dockerfile
+# https://github.com/kasmtech/workspaces-images/blob/develop/dockerfile-kasm-debian-bookworm-desktop  
 
 #COPY /root2 /
 # pip3 install cloudscraper replaced through apt install python3-cloudscraper
