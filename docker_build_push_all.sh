@@ -29,9 +29,16 @@ curl --location 'http://'$(sed -n 4p cred.txt)'/items/Docker_Build?access_token=
 			"success": 1,
 			"log": "Processing all builds!"
 		}'
+  
+# Debug free disk space
+freespacefile=/tmp/docker_buildlog___freespace.txt
+echo "Build startet: $todaydate" > $freespacefile
 
 for d in */ ; do
     name=$(echo "$d" | cut -d "/" -f 1)
+
+    # Debug free disk space
+    echo && echo "Free Space before: $name" && df -h >> $freespacefile
     
     if [[ $name == _old__* ]];
 	then
