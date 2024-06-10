@@ -38,7 +38,7 @@ for d in */ ; do
     name=$(echo "$d" | cut -d "/" -f 1)
 
     # Debug free disk space
-    echo && echo "Free Space before: $name" && df -h && docker images >> $freespacefile
+    bash -c "echo && echo \"Free Space before: $name\" && df -h && docker images" >> $freespacefile
     
     if [[ $name == _old__* ]];
 	then
