@@ -130,6 +130,9 @@ for d in */ ; do
 			"log": "All Fine!"
 		}'
 	fi
+	# More images in one build, more disk space. Delete all images after upload/build.
+	# Images must be forced because the same layers in other images. The other images so also gone. "nice side effect"
+	docker rmi -f $(docker images --filter=reference="*/$name*" -q)
 done
 
 docker buildx stop mybuilder
