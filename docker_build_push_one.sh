@@ -22,7 +22,7 @@ if [ -d $1 ]; then
 	docker image tag registry.gruber.live/andi91/$1:latest registry.gruber.live/andi91/$1:$todaydate
 	docker push registry.gruber.live/andi91/$1:latest
 	docker push registry.gruber.live/andi91/$1:$todaydate
-	if [ ! -z "$2" ]
+	if [ -z "$2" ]
 	then
 		docker image tag registry.gruber.live/andi91/$1:latest andi91/$1:latest
 		docker image tag registry.gruber.live/andi91/$1:latest andi91/$1:$todaydate

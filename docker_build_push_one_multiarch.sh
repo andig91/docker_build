@@ -33,7 +33,7 @@ if [ -d $1 ]; then
     name=$(echo "$d" | cut -d "/" -f 1)
     docker buildx build  --platform $architecture -t registry.gruber.live/andi91/$1:latest --push --no-cache $1
     docker buildx build  --platform $architecture -t registry.gruber.live/andi91/$1:$todaydate --push $1
-    if [ ! -z "$2" ]
+    if [ -z "$2" ]
 	then
     	docker buildx build  --platform $architecture -t andi91/$1:latest --push $1
     	docker buildx build  --platform $architecture -t andi91/$1:$todaydate --push $1
