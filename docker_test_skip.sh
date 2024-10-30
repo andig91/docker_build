@@ -15,8 +15,13 @@ todaydate=$(date +%F)
 
 for d in */ ; do
     name=$(echo "$d" | cut -d "/" -f 1)
-    if [[ $name == _old__* ]];
+    # Don't want to change the name of the folder
+    # For me its better to create a file that controls that
+    #if [[ $name == _old__* ]];
+	if [ -f "$name/0_old_deprecated_noBuild" ]
 	then
+		echo
+		echo
 		echo "!!!Build skipped!!! $name"
 		continue
 	fi
