@@ -40,10 +40,12 @@ for d in */ ; do
     # Debug free disk space
     bash -c "echo && echo \"Free Space before: $name\" && df -h && docker images" >> $freespacefile
     
+    pwd
+    ls -1
     # Don't want to change the name of the folder
     # For me its better to create a file that controls that
     #if [[ $name == _old__* ]];
-	if [ -f "$name/0_deprecated_noBuild" ]
+	if [ -f "$name/0_old_deprecated_noBuild" ];
 	then
 		echo
 		echo "!!!!!!!"
