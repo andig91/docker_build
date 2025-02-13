@@ -1,12 +1,12 @@
-FROM bitnami/git as ente-gitloader
+FROM bitnami/git AS ente-gitloader
 RUN git clone https://github.com/ente-io/ente.git && cd ente && git submodule update --init --recursive
 
 # syntax=docker/dockerfile:1
-FROM node:21-bookworm-slim as ente-builder
+FROM node:20-bookworm-slim AS ente-builder
 WORKDIR /app
 RUN apt update && apt install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=ente-gitloader /ente/web .
-RUN yarn install
+RUN yarn install --network-timeout 1000000000
 ENV NEXT_PUBLIC_ENTE_ENDPOINT=DOCKER_RUNTIME_REPLACE_ENDPOINT
 ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=DOCKER_RUNTIME_REPLACE_ALBUMS_ENDPOINT
 # Here changed for choosing the app which should be build 
