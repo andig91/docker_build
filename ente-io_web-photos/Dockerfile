@@ -1,8 +1,8 @@
-FROM bitnami/git as ente-gitloader
+FROM bitnami/git AS ente-gitloader
 RUN git clone https://github.com/ente-io/ente.git && cd ente && git submodule update --init --recursive
 
 # syntax=docker/dockerfile:1
-FROM node:21-bookworm-slim as ente-builder
+FROM node:20-bookworm-slim AS ente-builder
 WORKDIR /app
 RUN apt update && apt install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=ente-gitloader /ente/web .
