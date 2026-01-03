@@ -68,8 +68,8 @@ for d in */ ; do
 		echo "$name $architecture" > $logfile
 		docker buildx build --platform $architecture -t andi91/$name:latest --push --no-cache $name >> $logfile 2>&1
 		docker buildx build --platform $architecture -t andi91/$name:$todaydate --push $name >> $logfile 2>&1
-		docker buildx build --platform $architecture -t registry.pu.gruber.tools/andi91/$name:latest --push $name >> $logfile 2>&1
-		docker buildx build --platform $architecture -t registry.pu.gruber.tools/andi91/$name:$todaydate --push $name >> $logfile 2>&1
+		docker buildx build --platform $architecture -t $(sed -n 5p cred.txt)/andi91/$name:latest --push $name >> $logfile 2>&1
+		docker buildx build --platform $architecture -t $(sed -n 5p cred.txt)/andi91/$name:$todaydate --push $name >> $logfile 2>&1
 		if $(docker manifest inspect andi91/$name:$todaydate 2>&1 | grep -qc "no such manifest")
 		then
 			builderror_local="$name"
@@ -87,10 +87,10 @@ for d in */ ; do
 			docker image tag andi91/$name:latest andi91/$name:$todaydate >> $logfile 2>&1
 			docker push andi91/$name:latest >> $logfile 2>&1
 			docker push andi91/$name:$todaydate >> $logfile 2>&1
-			docker image tag andi91/$name:latest registry.pu.gruber.tools/andi91/$name:latest
-			docker image tag andi91/$name:latest registry.pu.gruber.tools/andi91/$name:$todaydate
-			docker push registry.pu.gruber.tools/andi91/$name:latest
-			docker push registry.pu.gruber.tools/andi91/$name:$todaydate
+			docker image tag andi91/$name:latest $(sed -n 5p cred.txt)/andi91/$name:latest
+			docker image tag andi91/$name:latest $(sed -n 5p cred.txt)/andi91/$name:$todaydate
+			docker push $(sed -n 5p cred.txt)/andi91/$name:latest
+			docker push $(sed -n 5p cred.txt)/andi91/$name:$todaydate
 		fi
 	fi
 	# Send complete buildlog, if variable is filled  
