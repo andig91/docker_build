@@ -1,6 +1,9 @@
 # Image on Docker Hub  
 ## andi91/ente-io_web-allinone
 
+***UPDATE 2026: Image build deactivated***
+***Now there is a pre-built-image from the ente.io: https://github.com/ente-io/ente/blob/main/web/docs/docker.md***  
+
 ***DISCLAIMER: I never really test the allinone-image, because I personally use only the auth-app, but build succeed every week without errors***  
 
 A docker image for 2FA-Auth-Web-Frontend/App from [ente-io](https://ente.io/).  

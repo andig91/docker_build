@@ -1,6 +1,9 @@
 # Image on Docker Hub  
 ## andi91/ente-io_web-photos  
 
+***UPDATE 2026: Image build deactivated***
+***Now there is a pre-built-image from the ente.io: https://github.com/ente-io/ente/blob/main/web/docs/docker.md***  
+
 A docker image for photos-Web-Frontend/App from [ente-io](https://ente.io/).  
 Works with the Backend-Server from ente-io `ghcr.io/ente-io/server`.  
 There was no docker image for the docker-frontends, but a Dockerfile in the Community:  
