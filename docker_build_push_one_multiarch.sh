@@ -10,9 +10,9 @@ fi
 
 if [ -z "$2" ]
 then
-	echo "Push to Docker-Registry and registry.gruber.live"
+	echo "Push to Docker-Registry and registry.pu.gruber.tools"
 else
-	echo "Push only to registry.gruber.live"
+	echo "Push only to registry.pu.gruber.tools"
 fi
 
 if [ -f "$1/multiarch" ]
@@ -31,8 +31,8 @@ fi
 if [ -d $1 ]; then
 	echo "Dir exists"
     name=$(echo "$d" | cut -d "/" -f 1)
-    docker buildx build  --platform $architecture -t registry.gruber.live/andi91/$1:latest --push --no-cache $1
-    docker buildx build  --platform $architecture -t registry.gruber.live/andi91/$1:$todaydate --push $1
+    docker buildx build  --platform $architecture -t registry.pu.gruber.tools/andi91/$1:latest --push --no-cache $1
+    docker buildx build  --platform $architecture -t registry.pu.gruber.tools/andi91/$1:$todaydate --push $1
     if [ -z "$2" ]
 	then
     	docker buildx build  --platform $architecture -t andi91/$1:latest --push $1
